@@ -332,7 +332,7 @@ document
 .getElementById("votingForm")
 .addEventListener(
 "submit",
-async function(e){
+function(e){
 
 e.preventDefault();
 
@@ -371,68 +371,73 @@ votes.push({
 
 ministry: ministry,
 
-candidate:
-selected.value
+candidate: selected.value
 
 });
 
 }
 
-try {
+const payload = {
 
-  const response = await fetch(
-    WEBAPP_URL,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify({
-        voterType: voter.voterType,
-        voterId: voter.voterId,
-        votes: votes,
-        device: navigator.userAgent
-      })
-    }
-  );
+voterType: voter.voterType,
 
-  const result = await response.text();
+voterId: voter.voterId,
 
-  if(result === "ALREADY_VOTED"){
+votes: votes,
 
-    alert("This voter has already voted.");
+device: navigator.userAgent
 
-    return;
+};
 
-  }
+const form =
+document.createElement("form");
 
-  if(result === "SUCCESS"){
+form.method = "POST";
 
-    document.querySelector(".submit-btn").disabled = true;
+form.action = WEBAPP_URL;
 
-    alert("Vote submitted successfully.");
+form.target = "hiddenFrame";
 
-    sessionStorage.clear();
+const input =
+document.createElement("input");
 
-    window.location.href = "index.html";
+input.type = "hidden";
 
-  } else {
+input.name = "data";
 
-    alert(result);
+input.value =
+JSON.stringify(payload);
 
-  }
+form.appendChild(input);
 
-}
-catch(error){
+document.body.appendChild(form);
 
-  console.error(error);
+form.submit();
 
-  alert("Unable to submit vote.");
+document.querySelector(".submit-btn").disabled = true;
 
-}
+const msg =
+document.createElement("div");
+
+msg.className = "success";
+
+msg.innerHTML =
+"✅ Vote Submitted Successfully";
+
+document.body.appendChild(msg);
+
+sessionStorage.clear();
+
+setTimeout(()=>{
+
+window.location.href =
+"index.html";
+
+},2000);
+
 });
 
 </script>
-
+<iframe name="hiddenFrame" style="display:none;"></iframe>
 </body>
 </html>
