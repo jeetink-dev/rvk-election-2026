@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RVK Election 2026-27</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f5f7fa;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:850px;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+text-align:center;
+}
+
+.logo{
+width:120px;
+margin-bottom:15px;
+}
+
+h1{
+color:#0d47a1;
+font-size:40px;
+margin-bottom:5px;
+}
+
+h2{
+color:#0d47a1;
+margin-bottom:10px;
+}
+
+h3{
+color:#d84315;
+margin-bottom:30px;
+}
+
+.form-group{
+margin-bottom:20px;
+text-align:left;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-bottom:8px;
+}
+
+select{
+width:100%;
+padding:12px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+margin-top:20px;
+padding:15px 35px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="2.JPG" class="logo">
+
+<h1>RASHTROTTHANA VIDYA KENDRA</h1>
+
+<h2>KALABURAGI</h2>
+
+<h3>Student Council Election 2026-27</h3>
+
+<div class="form-group">
+
+<label>Select Voter Type</label>
+
+<select id="voterType">
+
+<option value="">Select</option>
+
+<option value="Student">Student</option>
+
+<option value="Teacher">Teacher</option>
+
+</select>
+
+</div>
+
+<div id="studentSection" class="hidden">
+
+<div class="form-group">
+
+<label>Class</label>
+
+<select id="studentClass">
+
+<option value="">Select Class</option>
+
+<option>IVA</option>
+<option>IVB</option>
+<option>IVC</option>
+
+<option>VA</option>
+<option>VB</option>
+
+<option>VIA</option>
+<option>VIB</option>
+
+<option>VIIA</option>
+<option>VIIB</option>
+
+<option>VIIIA</option>
+<option>VIIIB</option>
+
+<option>IXA</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Roll Number</label>
+
+<select id="rollNumber">
+
+<option value="">Select Roll Number</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div id="teacherSection" class="hidden">
+
+<div class="form-group">
+
+<label>Teacher Name</label>
+
+<select id="teacherName">
+
+<option value="">Select Teacher</option>
+
+
+
+<option>ABHISHEK K C</option>
+<option>Aishwarya</option>
+<option>AMBIKA BOONYAR</option>
+<option>AMBIKA H</option>
+<option>AMBIKA S</option>
+<option>ANUPAMA</option>
+<option>ANUSHA</option>
+<option>Archana</option>
+<option>ARCHANA</option>
+<option>BHAGYA LAXMI</option>
+<option>BHAGYASHREE</option>
+<option>BHUVANESHWARI P</option>
+<option>CHANDRASHASHI</option>
+<option>chandrika</option>
+<option>DEEPA BADIGER</option>
+<option>G RADHA</option>
+<option>GEETANJALI</option>
+<option>GEETHA RAJEEV KULKARNI</option>
+<option>JEETENDRA KUMAR</option>
+<option>KAVYA T</option>
+<option>KRISHNA JOSHI</option>
+<option>Laldeep S</option>
+<option>MADHUMATHI</option>
+<option>mahantappa</option>
+<option>MANJUNATH</option>
+<option>MRUTUNJAY H</option>
+<option>NAGARAJ D</option>
+<option>NIVEDITA</option>
+<option>OMKAR SWAMI</option>
+<option>POOJA N</option>
+<option>Poornima Harnal</option>
+<option>Ranjeeta</option>
+<option>RANJEETA C</option>
+<option>RENUKA M</option>
+<option>SANDHYA M KULKARNI</option>
+<option>SANJEEV</option>
+<option>SHANKAR</option>
+<option>SHANTKUMARI</option>
+<option>SHARANABASAPPA PATIL</option>
+<option>sharanamma</option>
+<option>SHIVALEELA</option>
+<option>SHIVASANGAPPA BABALESHWAR</option>
+<option>Shrimanthini D</option>
+<option>SHRIPAD</option>
+<option>siddamma</option>
+<option>siddayya</option>
+<option>smita</option>
+<option>SRIKANTH</option>
+<option>SUJATA</option>
+<option>SUNAINA KULKARNI</option>
+<option>SUNITA</option>
+<option>SUPRIYA A MATHAPATHI</option>
+<option>Suvarna</option>
+<option>umakant</option>
+<option>USHARANI</option>
+<option>VIJAYKUMAR</option>
+<option>Vijaylaxmi</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button onclick="enterVotingBooth()">
+ENTER VOTING BOOTH
+</button>
+
+</div>
+
+<script>
+
+const voterType =
+document.getElementById("voterType");
+
+const studentSection =
+document.getElementById("studentSection");
+
+const teacherSection =
+document.getElementById("teacherSection");
+
+voterType.addEventListener("change",()=>{
+
+studentSection.classList.add("hidden");
+teacherSection.classList.add("hidden");
+
+if(voterType.value==="Student"){
+studentSection.classList.remove("hidden");
+}
+
+if(voterType.value==="Teacher"){
+teacherSection.classList.remove("hidden");
+}
+
+});
+
+const rollDropdown =
+document.getElementById("rollNumber");
+
+for(let i=1;i<=45;i++){
+
+const option =
+document.createElement("option");
+
+option.value=i;
+option.textContent=i;
+
+rollDropdown.appendChild(option);
+
+}
+
+function enterVotingBooth(){
+
+const voter =
+voterType.value;
+
+if(!voter){
+
+alert("Please select voter type");
+return;
+
+}
+
+if(voter==="Student"){
+
+const studentClass =
+document.getElementById("studentClass").value;
+
+const roll =
+document.getElementById("rollNumber").value;
+
+if(!studentClass || !roll){
+
+alert("Please select class and roll number");
+return;
+
+}
+
+sessionStorage.setItem(
+"voterType",
+"Student"
+);
+
+sessionStorage.setItem(
+"studentClass",
+studentClass
+);
+
+sessionStorage.setItem(
+"rollNumber",
+roll
+);
+
+}
+
+if(voter==="Teacher"){
+
+const teacher =
+document.getElementById("teacherName").value;
+
+if(!teacher){
+
+alert("Please select teacher name");
+return;
+
+}
+
+sessionStorage.setItem(
+"voterType",
+"Teacher"
+);
+
+sessionStorage.setItem(
+"teacherName",
+teacher
+);
+
+}
+
+window.location.href =
+"vote1.html";
+
+}
+
+</script>
+
+</body>
+</html>
