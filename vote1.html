@@ -291,3 +291,185 @@ html;
 container.appendChild(card);
 
 }
+  function getVoterInfo(){
+
+const voterType =
+sessionStorage.getItem("voterType");
+
+let voterId = "";
+
+if(voterType === "Student"){
+
+const studentClass =
+sessionStorage.getItem("studentClass");
+
+const rollNumber =
+sessionStorage.getItem("rollNumber");
+
+voterId =
+`${studentClass}_${rollNumber}`;
+
+}
+
+if(voterType === "Teacher"){
+
+const teacherName =
+sessionStorage.getItem("teacherName");
+
+voterId =
+`TEACHER_${teacherName}`;
+
+}
+
+return {
+voterType,
+voterId
+};
+
+}
+
+document
+.getElementById("votingForm")
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+for(const ministry in ministries){
+
+const selected =
+document.querySelector(
+`input[name="${ministry}"]:checked`
+);
+
+if(!selected){
+
+alert(
+`Please vote for ${ministry}`
+);
+
+return;
+
+}
+
+}
+
+const voter =
+getVoterInfo();
+
+const votes = [];
+
+for(const ministry in ministries){
+
+const selected =
+document.querySelector(
+`input[name="${ministry}"]:checked`
+);
+
+votes.push({
+
+ministry: ministry,
+
+candidate:
+selected.value
+
+});
+
+}
+
+try{
+
+const response =
+await fetch(
+WEBAPP_URL,
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+
+voterType:
+voter.voterType,
+
+voterId:
+voter.voterId,
+
+votes:votes,
+
+device:
+navigator.userAgent
+
+})
+
+}
+);
+
+const result =
+await response.text();
+
+if(
+result ===
+"ALREADY_VOTED"
+){
+
+alert(
+"You have already voted."
+);
+
+window.location.href =
+"WELCOME_PAGE.HTML";
+
+return;
+
+}
+
+document
+.querySelector(
+".submit-btn"
+)
+.disabled = true;
+
+const msg =
+document.createElement(
+"div"
+);
+
+msg.className =
+"success";
+
+msg.innerHTML =
+"✅ Vote Submitted Successfully";
+
+document.body
+.appendChild(msg);
+
+setTimeout(()=>{
+
+window.location.href =
+"WELCOME_PAGE.HTML";
+
+},3000);
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Unable to submit vote. Please try again."
+);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
