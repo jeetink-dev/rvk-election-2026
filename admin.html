@@ -1,42 +1,23 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RVK Election Results Dashboard</title>
+<title>RVK Election Admin Dashboard</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-/* ==========================================
-   GLOBAL SETTINGS
-========================================== */
-
-:root{
-
---primary:#0d47a1;
---secondary:#1565c0;
---success:#2e7d32;
---warning:#ff9800;
---danger:#e53935;
-
---bg:#eef3f9;
---card:#ffffff;
-
---gold:#ffd700;
---silver:#c0c0c0;
---bronze:#cd7f32;
-
---text:#1f2937;
---shadow:0 10px 30px rgba(0,0,0,.08);
-
-}
+/* ===========================
+   RESET
+=========================== */
 
 *{
 margin:0;
@@ -44,19 +25,33 @@ padding:0;
 box-sizing:border-box;
 }
 
-body{
+:root{
 
-font-family:'Poppins',sans-serif;
-background:var(--bg);
-min-height:100vh;
-padding:20px;
-color:var(--text);
+--primary:#0d47a1;
+--secondary:#1565c0;
+--success:#00c853;
+--warning:#ff9800;
+--danger:#e53935;
+
+--card:#ffffff;
+--background:#eef3f8;
+
+--shadow:
+0 12px 35px rgba(0,0,0,.08);
 
 }
 
-/* ==========================================
-   LOGIN OVERLAY
-========================================== */
+body{
+
+font-family:'Poppins',sans-serif;
+background:var(--background);
+min-height:100vh;
+
+}
+
+/* ===========================
+   LOGIN SCREEN
+=========================== */
 
 #loginOverlay{
 
@@ -70,7 +65,7 @@ height:100%;
 background:
 linear-gradient(
 135deg,
-#001b5e,
+#001f5c,
 #0d47a1,
 #1565c0
 );
@@ -99,29 +94,15 @@ box-shadow:
 
 text-align:center;
 
-animation:fadeIn .7s ease;
-
-}
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
 }
 
 .login-logo{
 
 width:100px;
 height:100px;
+
 object-fit:contain;
+
 margin-bottom:15px;
 
 }
@@ -129,7 +110,8 @@ margin-bottom:15px;
 .login-title{
 
 font-family:'Montserrat',sans-serif;
-font-size:28px;
+
+font-size:30px;
 font-weight:800;
 
 color:var(--primary);
@@ -138,21 +120,23 @@ margin-bottom:10px;
 
 }
 
-.login-subtitle{
+.login-sub{
 
 color:#666;
+
 margin-bottom:25px;
 
 }
 
-.password-box{
+.login-input{
 
 width:100%;
+
 padding:15px;
 
 font-size:16px;
 
-border:2px solid #d9d9d9;
+border:2px solid #ddd;
 
 border-radius:12px;
 
@@ -162,7 +146,7 @@ margin-bottom:15px;
 
 }
 
-.password-box:focus{
+.login-input:focus{
 
 border-color:var(--secondary);
 
@@ -174,15 +158,16 @@ width:100%;
 
 padding:15px;
 
-border:none;
-
-border-radius:12px;
-
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
 #0d47a1,
 #1565c0
 );
+
+border:none;
+
+border-radius:12px;
 
 color:white;
 
@@ -197,36 +182,37 @@ transition:.3s;
 
 .login-btn:hover{
 
-transform:translateY(-2px);
+transform:translateY(-3px);
 
 }
 
-.login-error{
+#errorMessage{
 
 margin-top:15px;
 
-font-size:14px;
-font-weight:600;
-
 color:red;
+
+font-weight:600;
 
 display:none;
 
 }
 
-/* ==========================================
-   MAIN DASHBOARD
-========================================== */
+/* ===========================
+   DASHBOARD
+=========================== */
 
 #dashboard{
 
 display:none;
 
+padding:20px;
+
 }
 
-/* ==========================================
+/* ===========================
    HEADER
-========================================== */
+=========================== */
 
 .header{
 
@@ -242,14 +228,14 @@ padding:25px;
 border-radius:25px;
 
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
+
+color:white;
 
 box-shadow:var(--shadow);
 
 margin-bottom:25px;
-
-color:white;
 
 }
 
@@ -257,11 +243,12 @@ color:white;
 
 width:90px;
 height:90px;
+
 object-fit:contain;
 
 }
 
-.school-title{
+.school-info{
 
 flex:1;
 
@@ -269,18 +256,18 @@ text-align:center;
 
 }
 
-.school-title h1{
+.school-info h1{
 
 font-family:'Montserrat',sans-serif;
 
 font-size:42px;
 font-weight:800;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 }
 
-.school-title h2{
+.school-info h2{
 
 font-size:22px;
 font-weight:500;
@@ -289,56 +276,57 @@ margin-bottom:5px;
 
 }
 
-.school-title h3{
+.school-info h3{
 
 font-size:18px;
 font-weight:400;
 
 }
 
-/* ==========================================
-   STATUS BAR
-========================================== */
+/* ===========================
+   LIVE BAR
+=========================== */
 
-.status-bar{
+.top-bar{
 
 display:flex;
 justify-content:space-between;
 align-items:center;
 
-gap:20px;
+margin-bottom:25px;
 
-margin-bottom:20px;
 flex-wrap:wrap;
+
+gap:15px;
 
 }
 
-.status-pill{
+.live-status{
 
 background:white;
 
-padding:12px 20px;
+padding:12px 22px;
 
 border-radius:50px;
 
-box-shadow:var(--shadow);
-
 font-weight:600;
+
+box-shadow:var(--shadow);
 
 }
 
-.live-indicator{
+.live-dot{
 
-display:inline-block;
+width:14px;
+height:14px;
 
-width:12px;
-height:12px;
-
-background:#00c853;
+background:#00e676;
 
 border-radius:50%;
 
-margin-right:8px;
+display:inline-block;
+
+margin-right:10px;
 
 animation:pulse 1.5s infinite;
 
@@ -347,46 +335,60 @@ animation:pulse 1.5s infinite;
 @keyframes pulse{
 
 0%{
-transform:scale(1);
-opacity:1;
+box-shadow:
+0 0 0 0 rgba(0,230,118,.7);
 }
 
-50%{
-transform:scale(1.3);
-opacity:.6;
+70%{
+box-shadow:
+0 0 0 18px rgba(0,230,118,0);
 }
 
 100%{
-transform:scale(1);
-opacity:1;
+box-shadow:
+0 0 0 0 rgba(0,230,118,0);
 }
 
 }
 
-/* ==========================================
+.last-updated{
+
+background:white;
+
+padding:12px 22px;
+
+border-radius:50px;
+
+font-weight:600;
+
+box-shadow:var(--shadow);
+
+}
+
+/* ===========================
    SUMMARY CARDS
-========================================== */
+=========================== */
 
-.summary-grid{
+.summary{
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
+repeat(auto-fit,minmax(250px,1fr));
 
 gap:20px;
 
-margin-bottom:30px;
+margin-bottom:25px;
 
 }
 
-.summary-card{
+.card{
 
 background:white;
 
 padding:30px;
 
-border-radius:20px;
+border-radius:22px;
 
 box-shadow:var(--shadow);
 
@@ -396,37 +398,53 @@ transition:.3s;
 
 }
 
-.summary-card:hover{
+.card:hover{
 
 transform:translateY(-5px);
 
 }
 
-.summary-card h3{
+.card h3{
 
 color:#666;
-
-font-size:18px;
 
 margin-bottom:15px;
 
 }
 
-.summary-value{
+.counter{
 
-font-size:48px;
+font-size:58px;
 
 font-weight:800;
 
 font-family:'Montserrat',sans-serif;
 
-color:var(--primary);
+color:#0d47a1;
+
+animation:pulseCounter 2s infinite;
 
 }
 
-/* ==========================================
-   SEARCH SECTION
-========================================== */
+@keyframes pulseCounter{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.08);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+/* ===========================
+   SEARCH BAR
+=========================== */
 
 .search-section{
 
@@ -444,21 +462,13 @@ margin-bottom:25px;
 
 .search-box{
 
-display:flex;
-gap:15px;
-flex-wrap:wrap;
+width:100%;
 
-}
-
-.search-box input{
-
-flex:1;
-
-padding:15px 20px;
+padding:16px 22px;
 
 font-size:16px;
 
-border:2px solid #dfe6ee;
+border:2px solid #e0e0e0;
 
 border-radius:50px;
 
@@ -466,15 +476,15 @@ outline:none;
 
 }
 
-.search-box input:focus{
+.search-box:focus{
 
-border-color:var(--secondary);
+border-color:#1565c0;
 
 }
 
 #searchCount{
 
-margin-top:12px;
+margin-top:10px;
 
 font-weight:600;
 
@@ -482,33 +492,32 @@ color:#555;
 
 }
 
-/* ==========================================
+/* ===========================
    CONTROL BUTTONS
-========================================== */
+=========================== */
 
 .controls{
 
 display:flex;
 justify-content:center;
-gap:15px;
-
 flex-wrap:wrap;
 
-margin-bottom:30px;
+gap:15px;
+
+margin-bottom:25px;
 
 }
 
 .btn{
 
-border:none;
-
 padding:14px 24px;
+
+border:none;
 
 border-radius:12px;
 
-font-weight:700;
-
 font-size:15px;
+font-weight:700;
 
 cursor:pointer;
 
@@ -525,111 +534,84 @@ transform:translateY(-3px);
 }
 
 .btn-print{
-background:var(--success);
+background:#2e7d32;
 }
 
 .btn-csv{
-background:var(--warning);
+background:#ff9800;
 }
 
 .btn-refresh{
-background:var(--secondary);
+background:#1565c0;
 }
 
 .btn-dark{
 background:#212121;
 }
 
-/* ==========================================
-   RESULTS CONTAINER
-========================================== */
+/* ===========================
+   RESULTS
+=========================== */
 
 #resultsContainer{
 
 display:flex;
 flex-direction:column;
-
 gap:25px;
 
 }
 
-/* ==========================================
+/* ===========================
    FOOTER
-========================================== */
+=========================== */
 
 .footer{
 
-margin-top:40px;
+margin-top:30px;
 
 text-align:center;
 
 color:#666;
 
-font-size:14px;
+padding:20px;
 
 }
 
-/* ==========================================
-   DARK MODE
-========================================== */
-
-.dark-mode{
-
-background:#111827;
-color:white;
-
-}
-
-.dark-mode .summary-card,
-.dark-mode .search-section,
-.dark-mode .status-pill{
-
-background:#1f2937;
-color:white;
-
-}
-
-.dark-mode input{
-
-background:#111827;
-color:white;
-
-}
-
-/* ==========================================
+/* ===========================
    MOBILE
-========================================== */
+=========================== */
 
 @media(max-width:768px){
 
 .header{
 
 flex-direction:column;
+
 gap:20px;
 
 }
 
-.school-title h1{
+.school-info h1{
 
 font-size:26px;
 
 }
 
-.school-title h2{
+.school-info h2{
 
 font-size:18px;
 
 }
 
-.school-title h3{
+.school-info h3{
 
 font-size:15px;
 
 }
 
-.summary-value{
+.counter{
 
-font-size:34px;
+font-size:40px;
 
 }
 
@@ -647,23 +629,21 @@ font-size:34px;
 
 <div class="login-card">
 
-<img
-src="Picture1.jpg"
-class="login-logo">
+<img src="Picture1.jpg" class="login-logo">
 
 <div class="login-title">
 RVK ADMIN PANEL
 </div>
 
-<div class="login-subtitle">
+<div class="login-sub">
 Authorized Access Only
 </div>
 
 <input
 type="password"
 id="adminPassword"
-class="password-box"
-placeholder="Enter Admin Password">
+class="login-input"
+placeholder="Enter Password">
 
 <button
 class="login-btn"
@@ -673,12 +653,8 @@ LOGIN
 
 </button>
 
-<div
-id="loginError"
-class="login-error">
-
+<div id="errorMessage">
 Incorrect Password
-
 </div>
 
 </div>
@@ -691,104 +667,62 @@ Incorrect Password
 
 <div class="header">
 
-<img
-src="Picture1.jpg"
-class="school-logo">
+<img src="Picture1.jpg" class="school-logo">
 
-<div class="school-title">
+<div class="school-info">
 
-<h1>
-RASHTROTTHANA VIDYA KENDRA
-</h1>
+<h1>RASHTROTTHANA VIDYA KENDRA</h1>
 
-<h2>
-KALABURAGI
-</h2>
+<h2>KALABURAGI</h2>
 
-<h3>
-Student Council Election 2026-27
-</h3>
+<h3>Student Council Election 2026-27</h3>
 
 </div>
 
-<img
-src="Picture1.jpg"
-class="school-logo">
+<img src="Picture1.jpg" class="school-logo">
 
 </div>
 
-<div class="status-bar">
+<div class="top-bar">
 
-<div class="status-pill">
-<span class="live-indicator"></span>
+<div class="live-status">
+<span class="live-dot"></span>
 Live Results
 </div>
 
-<div class="status-pill">
+<div class="last-updated">
 Last Updated:
-<span id="lastUpdated">
---
-</span>
+<span id="lastUpdated">--</span>
 </div>
 
 </div>
 
-<div class="summary-grid">
+<div class="summary">
 
-<div class="summary-card">
-
+<div class="card">
 <h3>Total Votes</h3>
-
-<div
-id="totalVotes"
-class="summary-value">
-
-0
-
+<div class="counter" id="totalVotes">0</div>
 </div>
 
-</div>
-
-<div class="summary-card">
-
+<div class="card">
 <h3>Student Votes</h3>
-
-<div
-id="studentVotes"
-class="summary-value">
-
-0
-
+<div class="counter" id="studentVotes">0</div>
 </div>
 
-</div>
-
-<div class="summary-card">
-
+<div class="card">
 <h3>Teacher Votes</h3>
-
-<div
-id="teacherVotes"
-class="summary-value">
-
-0
-
-</div>
-
+<div class="counter" id="teacherVotes">0</div>
 </div>
 
 </div>
 
 <div class="search-section">
 
-<div class="search-box">
-
 <input
 type="text"
 id="searchInput"
+class="search-box"
 placeholder="🔍 Search Ministry or Candidate">
-
-</div>
 
 <div id="searchCount">
 All Results Showing
@@ -798,220 +732,122 @@ All Results Showing
 
 <div class="controls">
 
-<button
-class="btn btn-print">
-
+<button class="btn btn-print">
 🖨 Print Results
-
 </button>
 
-<button
-class="btn btn-csv">
-
+<button class="btn btn-csv">
 ⬇ Download CSV
-
 </button>
 
-<button
-class="btn btn-refresh">
-
+<button class="btn btn-refresh">
 🔄 Refresh
-
 </button>
 
-<button
-class="btn btn-dark">
-
+<button class="btn btn-dark">
 🌙 Dark Mode
-
 </button>
 
 </div>
 
 <div id="resultsContainer">
 
-<!-- Results generated in PART 2 -->
+<!-- Results generated by Part 2 -->
 
 </div>
 
 <div class="footer">
-
-RVK Election Results Dashboard © 2026
-
+RVK Election Dashboard © 2026
 </div>
 
 </div>
-```
-```html
 <script>
 
-/* ==========================================
+/* ===========================
    CONFIGURATION
-========================================== */
+=========================== */
 
-const ADMIN_PASSWORD = "RVK@2026";
+const ADMIN_PASSWORD = "RVK2026";
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbyUP49bRuBO7Btfqq7UiiN3m9X4puuY5sULwsBwTMf0yzXS1WS-r8BPx-iFKh-IP4_4/exec";
+"https://script.google.com/macros/s/YOUR_WEBAPP_URL_HERE/exec";
 
 let exportData = [];
 let darkMode = false;
 
-/* ==========================================
-   LOGIN SYSTEM
-========================================== */
+/* ===========================
+   LOGIN
+=========================== */
 
 function login(){
 
-const password =
-document
-.getElementById("adminPassword")
-.value;
+const pass =
+document.getElementById(
+"adminPassword"
+).value.trim();
 
-if(password === ADMIN_PASSWORD){
+if(pass === ADMIN_PASSWORD){
 
-document
-.getElementById("loginOverlay")
-.style.display = "none";
+document.getElementById(
+"loginOverlay"
+).style.display = "none";
 
-document
-.getElementById("dashboard")
-.style.display = "block";
+document.getElementById(
+"dashboard"
+).style.display = "block";
 
 loadResults();
 
 }
 else{
 
-document
-.getElementById("loginError")
-.style.display = "block";
+document.getElementById(
+"errorMessage"
+).style.display = "block";
 
 }
 
 }
 
-/* ==========================================
-   ENTER KEY LOGIN
-========================================== */
+/* ===========================
+   COUNTER ANIMATION
+=========================== */
 
-document
-.getElementById("adminPassword")
-.addEventListener("keypress",function(e){
+function animateCounter(id,value){
 
-if(e.key==="Enter"){
-login();
-}
+let start = 0;
 
-});
+const element =
+document.getElementById(id);
 
-/* ==========================================
-   BUTTONS
-========================================== */
+const duration = 1200;
 
-document
-.querySelector(".btn-print")
-.addEventListener(
-"click",
-()=>window.print()
-);
+const increment =
+value / (duration / 20);
 
-document
-.querySelector(".btn-refresh")
-.addEventListener(
-"click",
-loadResults
-);
+const timer =
+setInterval(()=>{
 
-document
-.querySelector(".btn-csv")
-.addEventListener(
-"click",
-downloadCSV
-);
+start += increment;
 
-document
-.querySelector(".btn-dark")
-.addEventListener(
-"click",
-toggleDarkMode
-);
+if(start >= value){
 
-/* ==========================================
-   SEARCH
-========================================== */
+start = value;
 
-document
-.getElementById("searchInput")
-.addEventListener(
-"keyup",
-searchResults
-);
-
-function searchResults(){
-
-const keyword =
-document
-.getElementById("searchInput")
-.value
-.toLowerCase()
-.trim();
-
-const ministries =
-document.querySelectorAll(".ministry-card");
-
-let visible = 0;
-
-ministries.forEach(card=>{
-
-const ministry =
-card.dataset.search || "";
-
-const candidates =
-card.dataset.candidates || "";
-
-if(
-ministry.includes(keyword) ||
-candidates.includes(keyword)
-){
-
-card.style.display="block";
-visible++;
-
-}
-else{
-
-card.style.display="none";
+clearInterval(timer);
 
 }
 
-});
+element.textContent =
+Math.floor(start);
 
-document
-.getElementById("searchCount")
-.innerHTML =
-visible +
-" result(s) found";
+},20);
 
 }
 
-/* ==========================================
-   DARK MODE
-========================================== */
-
-function toggleDarkMode(){
-
-darkMode = !darkMode;
-
-document.body.classList.toggle(
-"dark-mode"
-);
-
-}
-
-/* ==========================================
+/* ===========================
    LOAD RESULTS
-========================================== */
+=========================== */
 
 async function loadResults(){
 
@@ -1023,29 +859,49 @@ await fetch(API_URL);
 const data =
 await response.json();
 
-document
-.getElementById("lastUpdated")
-.textContent =
+animateCounter(
+"totalVotes",
+data.totalVotes || 0
+);
+
+animateCounter(
+"studentVotes",
+data.studentVotes || 0
+);
+
+animateCounter(
+"teacherVotes",
+data.teacherVotes || 0
+);
+
+document.getElementById(
+"lastUpdated"
+).textContent =
 new Date().toLocaleTimeString();
 
-document
-.getElementById("totalVotes")
-.textContent =
-data.totalVotes || 0;
+renderResults(data);
 
-document
-.getElementById("studentVotes")
-.textContent =
-data.studentVotes || 0;
+}
+catch(err){
 
-document
-.getElementById("teacherVotes")
-.textContent =
-data.teacherVotes || 0;
+console.error(err);
+
+alert(
+"Unable to load election results."
+);
+
+}
+
+}
+
+/* ===========================
+   RENDER RESULTS
+=========================== */
+
+function renderResults(data){
 
 const container =
-document
-.getElementById(
+document.getElementById(
 "resultsContainer"
 );
 
@@ -1058,77 +914,32 @@ for(const ministry in data.results){
 const ministryData =
 data.results[ministry];
 
-const sorted =
+const candidates =
 Object.entries(ministryData)
 .sort(
 (a,b)=>
-b[1].total -
-a[1].total
+b[1].total - a[1].total
 );
 
 const card =
 document.createElement("div");
 
 card.className =
-"ministry-card";
-
-card.style.background =
-"white";
-
-card.style.padding =
-"25px";
-
-card.style.borderRadius =
-"20px";
-
-card.style.boxShadow =
-"0 10px 25px rgba(0,0,0,.08)";
-
-card.style.marginBottom =
-"25px";
-
-let labels = [];
-let totals = [];
-
-let winner =
-sorted[0][0];
-
-let winnerVotes =
-sorted[0][1].total;
-
-let candidateSearch =
-"";
+"result-card";
 
 let html = `
 
-<div
-style="
-background:#0d47a1;
-color:white;
-padding:15px;
-border-radius:12px;
-font-size:24px;
-font-weight:800;
-text-align:center;
-margin-bottom:20px;
-">
+<div class="ministry-header">
 
-${ministry}
+🏛 ${ministry}
 
 </div>
 
-<table
-style="
-width:100%;
-border-collapse:collapse;
-">
+<table class="result-table">
 
 <thead>
 
-<tr
-style="
-background:#e3f2fd;
-">
+<tr>
 
 <th>Rank</th>
 <th>Candidate</th>
@@ -1145,15 +956,56 @@ background:#e3f2fd;
 
 `;
 
-sorted.forEach(
+const totalVotes =
+candidates.reduce(
+(sum,c)=>
+sum + c[1].total,
+0
+);
+
+let winner = "";
+let winnerVotes = 0;
+
+candidates.forEach(
 ([candidate,row],index)=>{
 
-labels.push(candidate);
-totals.push(row.total);
+const percentage =
+totalVotes > 0
+?
+(
+row.total /
+totalVotes *
+100
+).toFixed(1)
+:
+0;
 
-candidateSearch +=
-candidate.toLowerCase() +
-" ";
+let badge = "";
+
+if(index === 0){
+
+badge =
+"🥇";
+
+winner =
+candidate;
+
+winnerVotes =
+row.total;
+
+}
+else if(index === 1){
+
+badge =
+"🥈";
+
+}
+else if(index === 2){
+
+badge =
+"🥉";
+
+}
 
 exportData.push([
 
@@ -1165,106 +1017,48 @@ row.total
 
 ]);
 
-let rank =
-index + 1;
-
-let medal =
-rank===1
-? "🥇"
-: rank===2
-? "🥈"
-: rank===3
-? "🥉"
-: rank;
-
-let percent =
-(
-row.total /
-data.totalVotes
-*100
-).toFixed(1);
-
-let bg =
-rank===1
-? "#fff8e1"
-: rank===2
-? "#f5f5f5"
-: rank===3
-? "#efebe9"
-: "#fff";
-
 html += `
 
 <tr
-style="
-background:${bg};
-">
+class="${
+index===0
+?
+'leader-row'
+:
+''
+}">
 
-<td
-style="
-padding:12px;
-text-align:center;
-font-weight:bold;
-">
-
-${medal}
-
+<td>
+${badge}
 </td>
 
 <td
-style="
-padding:12px;
-font-weight:
-${rank===1?'800':'600'};
-font-size:
-${rank===1?'18px':'15px'};
-color:
-${rank===1?'#d32f2f':'#333'};
-font-family:
-Montserrat;
-">
-
+class="${
+index===0
+?
+'leader-name'
+:
+''
+}">
 ${candidate}
-
 </td>
 
-<td
-style="
-text-align:center;
-">
-
+<td>
 ${row.student}
-
 </td>
 
-<td
-style="
-text-align:center;
-">
-
+<td>
 ${row.teacher}
-
 </td>
 
-<td
-style="
-text-align:center;
-font-size:18px;
-font-weight:800;
-color:#0d47a1;
-">
-
+<td>
+<b>
 ${row.total}
-
+</b>
 </td>
 
-<td
-style="
-text-align:center;
-">
-
-${percent}%
-
+<td>
+${percentage}%
 </td>
 
 </tr>
@@ -1279,47 +1073,25 @@ html += `
 
 </table>
 
-<div
-style="
-margin-top:20px;
-padding:20px;
-border-radius:15px;
-background:
-linear-gradient(
-135deg,
-#fff8e1,
-#ffecb3
-);
-border:3px solid #ffc107;
-text-align:center;
-font-size:28px;
-font-weight:800;
-color:#bf360c;
-">
+<div class="winner-box">
 
 🏆 WINNER
 
-<br><br>
-
-<span
-style="
-font-size:34px;
-">
+<span class="winner-name">
 
 ${winner}
 
 </span>
 
-<br>
+<span class="winner-votes">
 
 ${winnerVotes} Votes
 
+</span>
+
 </div>
 
-<div
-style="
-margin-top:20px;
-">
+<div class="chart-area">
 
 <canvas
 id="chart_${btoa(ministry).replace(/=/g,'')}">
@@ -1329,42 +1101,58 @@ id="chart_${btoa(ministry).replace(/=/g,'')}">
 
 `;
 
-card.innerHTML =
-html;
-
-card.setAttribute(
-"data-search",
-ministry.toLowerCase()
-);
-
-card.setAttribute(
-"data-candidates",
-candidateSearch
-);
+card.innerHTML = html;
 
 container.appendChild(card);
 
+createChart(
+ministry,
+candidates
+);
+
+}
+
+}
+
+/* ===========================
+   CHARTS
+=========================== */
+
+function createChart(
+ministry,
+candidates
+){
+
 setTimeout(()=>{
 
-new Chart(
-
+const canvas =
 document.getElementById(
 `chart_${btoa(ministry).replace(/=/g,'')}`
-),
+);
 
+if(!canvas) return;
+
+new Chart(
+canvas,
 {
 
-type:'bar',
+type:"bar",
 
 data:{
 
-labels:labels,
+labels:
+candidates.map(
+c=>c[0]
+),
 
 datasets:[{
 
-label:'Votes',
+label:"Votes",
 
-data:totals
+data:
+candidates.map(
+c=>c[1].total
+)
 
 }]
 
@@ -1377,9 +1165,15 @@ responsive:true,
 plugins:{
 
 legend:{
-
 display:false
+}
 
+},
+
+scales:{
+
+y:{
+beginAtZero:true
 }
 
 }
@@ -1394,33 +1188,88 @@ display:false
 
 }
 
-}
-catch(err){
+/* ===========================
+   SEARCH
+=========================== */
 
-console.error(err);
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"keyup",
+function(){
 
-alert(
-"Unable to load results"
+const keyword =
+this.value
+.toLowerCase()
+.trim();
+
+const cards =
+document.querySelectorAll(
+".result-card"
 );
 
+let visible = 0;
+
+cards.forEach(card=>{
+
+if(
+card.innerText
+.toLowerCase()
+.includes(keyword)
+){
+
+card.style.display =
+"block";
+
+visible++;
+
 }
+else{
+
+card.style.display =
+"none";
 
 }
 
-/* ==========================================
+});
+
+document.getElementById(
+"searchCount"
+).innerHTML =
+
+visible +
+" Ministries Found";
+
+}
+);
+
+/* ===========================
    CSV EXPORT
-========================================== */
+=========================== */
+
+document
+.querySelector(
+".btn-csv"
+)
+.addEventListener(
+"click",
+downloadCSV
+);
 
 function downloadCSV(){
 
 let csv =
+
 "Ministry,Candidate,Student Votes,Teacher Votes,Total Votes\n";
 
 exportData.forEach(row=>{
 
 csv +=
 row.join(",")
-+"\n";
++
+"\n";
 
 });
 
@@ -1449,16 +1298,209 @@ URL.revokeObjectURL(url);
 
 }
 
-/* ==========================================
-   AUTO REFRESH
-========================================== */
+/* ===========================
+   PRINT
+=========================== */
+
+document
+.querySelector(
+".btn-print"
+)
+.addEventListener(
+"click",
+()=>window.print()
+);
+
+/* ===========================
+   REFRESH
+=========================== */
+
+document
+.querySelector(
+".btn-refresh"
+)
+.addEventListener(
+"click",
+loadResults
+);
 
 setInterval(
 loadResults,
 30000
 );
 
-</script>
+/* ===========================
+   DARK MODE
+=========================== */
 
+document
+.querySelector(
+".btn-dark"
+)
+.addEventListener(
+"click",
+()=>{
+
+darkMode =
+!darkMode;
+
+if(darkMode){
+
+document.body.style.background =
+"#111827";
+
+document.body.style.color =
+"white";
+
+}
+else{
+
+document.body.style.background =
+"#eef3f8";
+
+document.body.style.color =
+"black";
+
+}
+
+});
+
+/* ===========================
+   EXTRA STYLES CREATED
+   BY JAVASCRIPT
+=========================== */
+
+const style =
+document.createElement(
+"style"
+);
+
+style.innerHTML = `
+
+.result-card{
+
+background:white;
+padding:25px;
+border-radius:25px;
+margin-bottom:25px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.ministry-header{
+
+background:#0d47a1;
+color:white;
+padding:16px;
+font-size:24px;
+font-weight:700;
+border-radius:15px;
+text-align:center;
+margin-bottom:20px;
+
+}
+
+.result-table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+.result-table th{
+
+background:#e3f2fd;
+padding:14px;
+
+}
+
+.result-table td{
+
+padding:12px;
+text-align:center;
+border-bottom:1px solid #eee;
+
+}
+
+.leader-row{
+
+background:#fff8e1;
+
+}
+
+.leader-name{
+
+font-weight:800;
+font-size:20px;
+color:#d97706;
+
+font-family:
+'Montserrat',
+sans-serif;
+
+}
+
+.winner-box{
+
+margin-top:20px;
+
+padding:18px;
+
+border-radius:15px;
+
+background:
+linear-gradient(
+135deg,
+#fff8e1,
+#ffecb3
+);
+
+border:2px solid #ffc107;
+
+text-align:center;
+
+}
+
+.winner-name{
+
+display:block;
+
+font-size:28px;
+
+font-weight:800;
+
+color:#d97706;
+
+margin-top:8px;
+
+font-family:
+'Montserrat',
+sans-serif;
+
+}
+
+.winner-votes{
+
+display:block;
+
+margin-top:6px;
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+.chart-area{
+
+margin-top:25px;
+
+}
+
+`;
+
+document.head.appendChild(style);
+
+</script>
 </body>
 </html>
