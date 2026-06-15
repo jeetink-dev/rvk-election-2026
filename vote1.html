@@ -1,221 +1,628 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RVK Election Voting Booth</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<title>RVK Student Council Election 2026-27</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
+:root{
+
+--primary:#0d47a1;
+--secondary:#1565c0;
+--accent:#42a5f5;
+--gold:#f9a825;
+--success:#2e7d32;
+--danger:#d32f2f;
+
+--glass:
+rgba(255,255,255,.88);
+
+}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-background:#f4f7fc;
+
+font-family:'Inter',sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#eef5ff,
+#f7faff,
+#ffffff
+);
+
+min-height:100vh;
+
 padding:20px;
+
+overflow-x:hidden;
+
 }
+
+/* HEADER */
 
 .header{
+
+background:white;
+
+padding:25px;
+
+border-radius:25px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:25px;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.08);
+
+margin-bottom:25px;
+
+}
+
+.logo{
+
+width:95px;
+
+height:95px;
+
+object-fit:contain;
+
+}
+
+.school-title{
+
 text-align:center;
-margin-bottom:30px;
+
 }
 
-.header img{
-width:100px;
-margin-bottom:10px;
-}
+.school-title h1{
 
-.header h1{
-background:linear-gradient(
+font-family:'Montserrat',sans-serif;
+
+font-size:42px;
+
+font-weight:900;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+
+background:
+linear-gradient(
 90deg,
 #0d47a1,
 #1565c0,
-#1e88e5
+#42a5f5
 );
+
+background-size:200% auto;
+
 -webkit-background-clip:text;
+
 -webkit-text-fill-color:transparent;
-animation:shine 4s linear infinite;
+
+animation:shine 5s linear infinite;
+
 }
 
 @keyframes shine{
-0%{background-position:0%;}
-100%{background-position:200%;}
+
+0%{
+background-position:0%;
 }
 
-.header h2{
-    font-family:'Montserrat',sans-serif;
-    font-size:26px;
-    font-weight:700;
+100%{
+background-position:200%;
 }
 
-.header p{
-color:#555;
-font-size:16px;
 }
 
-.ministry{
-background:white;
-padding:20px;
-margin-bottom:25px;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,.1);
-}
- .ministry{
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,.85);
-border:1px solid rgba(255,255,255,.5);
-box-shadow:
-0 10px 30px rgba(0,0,0,.08);
-}
+.school-title h2{
 
-.ministry-title{
-background:#0d47a1;
-color:white;
-padding:12px;
-border-radius:10px;
-text-align:center;
-font-size:20px;
-font-weight:bold;
-margin-bottom:20px;
-}
+font-family:'Montserrat',sans-serif;
 
-.candidates{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-}
-
-.candidate{
-    position:relative;
-    overflow:hidden;
-    transition:.35s ease;
-}
-
-.candidate:hover{
-    transform:translateY(-8px);
-    border-color:#1565c0;
-    box-shadow:0 15px 35px rgba(21,101,192,.25);
-    background:linear-gradient(
-        135deg,
-        #f5faff,
-        #e3f2fd
-    );
-}
-
-.candidate input{
-margin-top:10px;
-transform:scale(1.3);
-}
-
-.submit-btn{
-width:100%;
-padding:18px;
-font-size:20px;
-font-weight:bold;
-background:#2e7d32;
-color:white;
-border:none;
-border-radius:12px;
-cursor:pointer;
-position:sticky;
-bottom:10px;
-}
-
-.submit-btn:hover{
-background:#1b5e20;
-}
- .candidate.selected{
-    background:linear-gradient(
-        135deg,
-        #1565c0,
-        #0d47a1
-    );
-    color:white;
-    border:2px solid #64b5f6;
-    transform:translateY(-5px);
-    box-shadow:0 20px 40px rgba(13,71,161,.35);
-}
-
-.success{
-text-align:center;
 font-size:24px;
+
+font-weight:700;
+
 color:#2e7d32;
-margin-top:20px;
-font-weight:bold;
-}
- body{
-    font-family:'Inter',sans-serif;
-}
- @keyframes shake{
-0%,100%{transform:translateX(0);}
-25%{transform:translateX(-8px);}
-75%{transform:translateX(8px);}
+
+margin-top:8px;
+
 }
 
-.missing{
-    border:3px solid #e53935;
-    animation:shake .4s linear 3;
+.school-title p{
+
+font-size:16px;
+
+color:#555;
+
+margin-top:8px;
+
+font-weight:500;
+
 }
+
+/* PROGRESS TRACKER */
+
 #progressBox{
+
 position:sticky;
+
 top:10px;
+
 z-index:999;
+
 background:white;
-padding:15px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-margin-bottom:20px;
+
+padding:18px;
+
+border-radius:20px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.12);
+
+margin-bottom:25px;
+
+}
+
+#progressText{
+
+font-weight:700;
+
+font-size:18px;
+
+margin-bottom:12px;
+
+color:var(--primary);
+
 }
 
 .progressBar{
-height:12px;
+
+height:14px;
+
 background:#ddd;
-border-radius:20px;
+
+border-radius:30px;
+
 overflow:hidden;
+
 }
 
 #progressFill{
+
 height:100%;
+
 width:0%;
-background:linear-gradient(
+
+background:
+linear-gradient(
 90deg,
 #43a047,
 #66bb6a
 );
+
 transition:.4s;
+
 }
+
+/* FLOATING NAVIGATION */
+
+.side-nav{
+
+position:fixed;
+
+right:15px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+background:white;
+
+padding:12px;
+
+border-radius:20px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.15);
+
+z-index:1000;
+
+max-height:80vh;
+
+overflow:auto;
+
+}
+
+.side-nav a{
+
+display:block;
+
+padding:8px 10px;
+
+margin:5px 0;
+
+text-decoration:none;
+
+font-size:13px;
+
+font-weight:700;
+
+color:var(--primary);
+
+border-radius:10px;
+
+}
+
+.side-nav a:hover{
+
+background:#e3f2fd;
+
+}
+
+/* MINISTRY CARDS */
+
+.ministry{
+
+background:var(--glass);
+
+backdrop-filter:blur(18px);
+
+padding:25px;
+
+border-radius:25px;
+
+margin-bottom:25px;
+
+border:1px solid rgba(255,255,255,.5);
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.ministry:hover{
+
+transform:translateY(-4px);
+
+}
+
+.ministry-title{
+
+background:
+linear-gradient(
+135deg,
+#0d47a1,
+#1565c0
+);
+
+color:white;
+
+padding:15px;
+
+border-radius:15px;
+
+text-align:center;
+
+font-family:'Montserrat',sans-serif;
+
+font-size:22px;
+
+font-weight:700;
+
+margin-bottom:25px;
+
+}
+
+/* CANDIDATE GRID */
+
+.candidates{
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:18px;
+
+}
+
+.candidate{
+
+width:190px;
+
+padding:18px;
+
+background:white;
+
+border-radius:20px;
+
+border:2px solid #e0e0e0;
+
+cursor:pointer;
+
+text-align:center;
+
+position:relative;
+
+overflow:hidden;
+
+transition:.35s ease;
+
+}
+
+.candidate:hover{
+
+transform:translateY(-8px);
+
+border-color:#1565c0;
+
+box-shadow:
+0 15px 35px rgba(21,101,192,.25);
+
+background:
+linear-gradient(
+135deg,
+#f5faff,
+#e3f2fd
+);
+
+}
+
+/* PREMIUM CANDIDATE NAME */
+
+.candidate-name{
+
+font-family:'Montserrat',sans-serif;
+
+font-weight:800;
+
+font-size:18px;
+
+letter-spacing:.5px;
+
+text-transform:uppercase;
+
+color:#0d47a1;
+
+margin-bottom:12px;
+
+line-height:1.4;
+
+}
+
+/* RADIO BUTTON */
+
+.candidate input{
+
+transform:scale(1.4);
+
+margin-top:8px;
+
+}
+
+/* SELECTED CARD */
+
+.candidate.selected{
+
+background:
+linear-gradient(
+135deg,
+#1565c0,
+#0d47a1
+);
+
+color:white;
+
+border-color:#64b5f6;
+
+transform:translateY(-6px);
+
+box-shadow:
+0 20px 40px rgba(13,71,161,.35);
+
+}
+
+.candidate.selected .candidate-name{
+
+color:white;
+
+}
+
+.candidate.selected::after{
+
+content:"✓";
+
+position:absolute;
+
+top:10px;
+
+right:15px;
+
+font-size:24px;
+
+font-weight:bold;
+
+color:white;
+
+}
+
+/* MISSING MINISTRY */
+
+@keyframes shake{
+
+0%,100%{
+transform:translateX(0);
+}
+
+25%{
+transform:translateX(-8px);
+}
+
+75%{
+transform:translateX(8px);
+}
+
+}
+
+.missing{
+
+border:3px solid var(--danger);
+
+animation:shake .4s linear 3;
+
+}
+
+/* SUBMIT BUTTON */
+
+.submit-btn{
+
+width:100%;
+
+padding:22px;
+
+font-size:22px;
+
+font-weight:800;
+
+font-family:'Montserrat',sans-serif;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+135deg,
+#2e7d32,
+#43a047
+);
+
+color:white;
+
+cursor:pointer;
+
+position:sticky;
+
+bottom:10px;
+
+box-shadow:
+0 12px 30px rgba(46,125,50,.3);
+
+transition:.3s;
+
+}
+
+.submit-btn:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 18px 40px rgba(46,125,50,.4);
+
+}
+
+/* SUCCESS MESSAGE */
+
+.success{
+
+text-align:center;
+
+font-size:28px;
+
+font-weight:800;
+
+color:#2e7d32;
+
+padding:20px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.side-nav{
+display:none;
+}
+
+.header{
+flex-direction:column;
+}
+
+.school-title h1{
+font-size:28px;
+}
+
+.candidate{
+width:160px;
+}
+
+}
+
 </style>
 
 </head>
 
 <body>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<div id="progressBox">
-    <div id="progressText">
-        0 / 14 Ministries Completed
-    </div>
 
-    <div class="progressBar">
-        <div id="progressFill"></div>
-    </div>
+<div class="side-nav" id="sideNav"></div>
+
+<div id="progressBox">
+
+<div id="progressText">
+0 / 14 Ministries Completed
 </div>
+
+<div class="progressBar">
+<div id="progressFill"></div>
+</div>
+
+</div>
+
 <div class="header">
 
-<img src="Picture1.jpg" alt="School Logo">
+<img src="Picture1.jpg" class="logo">
+
+<div class="school-title">
 
 <h1>RASHTROTTHANA VIDYA KENDRA</h1>
 
 <h2>KALABURAGI</h2>
 
-<p>
-Student Council Election 2026–27
-</p>
+<p>Student Council Election 2026-27</p>
+
+</div>
+
+<img src="Picture1.jpg" class="logo">
 
 </div>
 
@@ -224,11 +631,10 @@ Student Council Election 2026–27
 <div id="ministriesContainer"></div>
 
 <button type="submit" class="submit-btn">
-SUBMIT VOTE
+🗳 SUBMIT MY VOTE
 </button>
 
 </form>
-
 <script>
 
 const WEBAPP_URL =
@@ -325,13 +731,45 @@ document.getElementById(
 "ministriesContainer"
 );
 
+const sideNav =
+document.getElementById(
+"sideNav"
+);
+
+/* CREATE MINISTRIES */
+
 for(const ministry in ministries){
+
+const sectionId =
+ministry
+.replace(/[^a-zA-Z0-9]/g,"");
+
+const nav =
+document.createElement("a");
+
+nav.href =
+`#${sectionId}`;
+
+nav.textContent =
+ministry
+.replace("(Boys)","♂")
+.replace("(Girls)","♀");
+
+sideNav.appendChild(nav);
 
 const card =
 document.createElement("div");
 
 card.className =
 "ministry";
+
+card.id =
+sectionId;
+
+card.setAttribute(
+"data-ministry",
+ministry
+);
 
 let html = `
 <div class="ministry-title">
@@ -342,12 +780,12 @@ ${ministry}
 `;
 
 ministries[ministry]
-.forEach(candidate => {
+.forEach(candidate=>{
 
 html += `
 <label class="candidate">
 
-<div>
+<div class="candidate-name">
 ${candidate}
 </div>
 
@@ -364,37 +802,120 @@ value="${candidate}">
 html += `
 </div>
 `;
- 
-card.innerHTML =
-html;
+
+card.innerHTML = html;
 
 container.appendChild(card);
 
 }
-  function getVoterInfo(){
+
+/* PROGRESS */
+
+function updateProgress(){
+
+const total =
+Object.keys(
+ministries
+).length;
+
+const completed =
+document.querySelectorAll(
+'input[type="radio"]:checked'
+).length;
+
+const percent =
+(completed/total)*100;
+
+document.getElementById(
+"progressText"
+).innerHTML =
+`${completed} / ${total} Ministries Completed`;
+
+document.getElementById(
+"progressFill"
+).style.width =
+percent + "%";
+
+}
+
+updateProgress();
+
+/* SELECTION EFFECT */
+
+document.addEventListener(
+"change",
+function(e){
+
+if(
+e.target.type === "radio"
+){
+
+const group =
+document.querySelectorAll(
+`input[name="${e.target.name}"]`
+);
+
+group.forEach(radio=>{
+
+radio.closest(
+".candidate"
+).classList.remove(
+"selected"
+);
+
+});
+
+e.target.closest(
+".candidate"
+).classList.add(
+"selected"
+);
+
+updateProgress();
+
+}
+
+}
+);
+
+/* VOTER INFO */
+
+function getVoterInfo(){
 
 const voterType =
-sessionStorage.getItem("voterType");
+sessionStorage.getItem(
+"voterType"
+);
 
 let voterId = "";
 
-if(voterType === "Student"){
+if(
+voterType === "Student"
+){
 
 const studentClass =
-sessionStorage.getItem("studentClass");
+sessionStorage.getItem(
+"studentClass"
+);
 
 const rollNumber =
-sessionStorage.getItem("rollNumber");
+sessionStorage.getItem(
+"rollNumber"
+);
 
 voterId =
 `${studentClass}_${rollNumber}`;
 
 }
 
-if(voterType === "Teacher"){
+if(
+voterType === "Teacher"
+){
 
 const teacherName =
-sessionStorage.getItem("teacherName");
+sessionStorage.getItem(
+"teacherName"
+);
 
 voterId =
 `TEACHER_${teacherName}`;
@@ -408,15 +929,22 @@ voterId
 
 }
 
+/* SUBMIT */
+
 document
-.getElementById("votingForm")
+.getElementById(
+"votingForm"
+)
 .addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
-for(const ministry in ministries){
+for(
+const ministry
+in ministries
+){
 
 const selected =
 document.querySelector(
@@ -425,20 +953,26 @@ document.querySelector(
 
 if(!selected){
 
-const ministryCard =
+const card =
 document.querySelector(
 `[data-ministry="${ministry}"]`
 );
 
-ministryCard.scrollIntoView({
-    behavior:'smooth',
-    block:'center'
+card.scrollIntoView({
+behavior:"smooth",
+block:"center"
 });
 
-ministryCard.classList.add('missing');
+card.classList.add(
+"missing"
+);
 
 setTimeout(()=>{
-    ministryCard.classList.remove('missing');
+
+card.classList.remove(
+"missing"
+);
+
 },3000);
 
 return;
@@ -452,7 +986,10 @@ getVoterInfo();
 
 const votes = [];
 
-for(const ministry in ministries){
+for(
+const ministry
+in ministries
+){
 
 const selected =
 document.querySelector(
@@ -461,9 +998,9 @@ document.querySelector(
 
 votes.push({
 
-ministry: ministry,
+ministry:ministry,
 
-candidate: selected.value
+candidate:selected.value
 
 });
 
@@ -471,52 +1008,80 @@ candidate: selected.value
 
 const payload = {
 
-voterType: voter.voterType,
+voterType:
+voter.voterType,
 
-voterId: voter.voterId,
+voterId:
+voter.voterId,
 
-votes: votes,
+votes:votes,
 
-device: navigator.userAgent
+device:
+navigator.userAgent
 
 };
 
 const form =
-document.createElement("form");
+document.createElement(
+"form"
+);
 
 form.method = "POST";
 
-form.action = WEBAPP_URL;
+form.action =
+WEBAPP_URL;
 
-form.target = "hiddenFrame";
+form.target =
+"hiddenFrame";
 
 const input =
-document.createElement("input");
+document.createElement(
+"input"
+);
 
-input.type = "hidden";
+input.type =
+"hidden";
 
-input.name = "data";
+input.name =
+"data";
 
 input.value =
-JSON.stringify(payload);
+JSON.stringify(
+payload
+);
 
-form.appendChild(input);
+form.appendChild(
+input
+);
 
-document.body.appendChild(form);
+document.body
+.appendChild(
+form
+);
 
 form.submit();
 
-document.querySelector(".submit-btn").disabled = true;
+document.querySelector(
+".submit-btn"
+).disabled = true;
 
 const msg =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-msg.className = "success";
+msg.className =
+"success";
 
 msg.innerHTML =
-"✅ Vote Submitted Successfully";
+`
+✅ Vote Submitted Successfully
+<br><br>
+Thank You For Participating
+`;
 
-document.body.appendChild(msg);
+document.body
+.appendChild(msg);
 
 sessionStorage.clear();
 
@@ -525,14 +1090,16 @@ setTimeout(()=>{
 window.location.href =
 "index.html";
 
-},2000);
+},2500);
 
 });
 
 </script>
+
 <iframe
 name="hiddenFrame"
 style="display:none;">
 </iframe>
+
 </body>
 </html>
