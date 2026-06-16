@@ -15,35 +15,32 @@ box-sizing:border-box;
 font-family:'Segoe UI',sans-serif;
 }
 
-body::before{
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+    overflow-x:hidden;
+    position:relative;
+}
+    body::before{
 
     content:'';
 
     position:fixed;
 
-    top:50%;
-    left:50%;
+    inset:0;
 
-    transform:
-    translate(-50%,-50%);
+    background:
+    url('panchamukhi.png')
+    center center /
+    850px no-repeat;
 
-    width:900px;
-    height:900px;
+    opacity:.07;
 
-    background-image:
-    url('panchamukhi.png');
+    filter:blur(2px);
 
-    background-repeat:no-repeat;
-
-    background-position:center;
-
-    background-size:contain;
-
-    opacity:0.08;
-
-    z-index:-1;
-
-    pointer-events:none;
+    z-index:-2;
 
 }
 
